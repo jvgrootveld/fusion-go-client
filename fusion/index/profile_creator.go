@@ -7,6 +7,7 @@ import (
 
 	"github.com/jvgrootveld/fusion-go-client/fusion/connection"
 	"github.com/jvgrootveld/fusion-go-client/fusion/except"
+	"github.com/jvgrootveld/fusion-go-client/fusion/fault"
 	"github.com/jvgrootveld/fusion-go-client/fusion/pathbuilder"
 )
 
@@ -87,21 +88,13 @@ func (creator *ProfileCreator) Do(ctx context.Context) error {
 	return except.CheckResponseDataErrorAndStatusCode(responseData, err, 200, 201)
 }
 
-type ProfileCreatorRequestData struct {
-	Id                   string            `json:"id"`
-	IndexPipeline        string            `json:"indexPipeline"`
-	Collection           string            `json:"collection"`
-	Parser               string            `json:"parser,omitempty"`
-	AdditionalProperties map[string]string `json:"additionalProperties,omitempty"`
-}
-
-func (creator *ProfileCreator) CreateRequestObject() (*ProfileCreatorRequestData, error) {
+func (creator *ProfileCreator) CreateRequestObject() (*Profile, error) {
 	err := creator.checkRequired()
 	if err != nil {
 		return nil, err
 	}
 
-	return &ProfileCreatorRequestData{
+	return &Profile{
 		Id:                   creator.id,
 		IndexPipeline:        creator.indexPipeline,
 		Collection:           creator.collection,
@@ -114,13 +107,13 @@ func (creator *ProfileCreator) checkRequired() error {
 	typeName := fmt.Sprint(ProfileApiName, "Creator")
 
 	if creator.id == "" {
-		return except.NewRequiredError(typeName, "id")
+		return fault.NewRequiredError(typeName, "id")
 	}
 	if creator.indexPipeline == "" {
-		return except.NewRequiredError(typeName, "indexPipeline")
+		return fault.NewRequiredError(typeName, "indexPipeline")
 	}
 	if creator.collection == "" {
-		return except.NewRequiredError(typeName, "collection")
+		return fault.NewRequiredError(typeName, "collection")
 	}
 
 	return nil

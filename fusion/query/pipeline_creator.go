@@ -3,6 +3,7 @@ package query
 import (
 	"context"
 	"fmt"
+	"github.com/jvgrootveld/fusion-go-client/fusion/fault"
 	"net/http"
 
 	"github.com/jvgrootveld/fusion-go-client/fusion/query/stage"
@@ -80,7 +81,7 @@ func (creator *PipelineCreator) checkRequired() error {
 	typeName := fmt.Sprint(PipelineApiName, "Creator")
 
 	if creator.id == "" {
-		return except.NewRequiredError(typeName, "id")
+		return fault.NewRequiredError(typeName, "id")
 	}
 
 	return nil

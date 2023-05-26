@@ -1,6 +1,6 @@
 package stage
 
-// Stage type for Index and Query pipeline stages
+// Stage type for Query pipeline stage
 type Stage interface{}
 
 // BaseStage contains properties that every stage has

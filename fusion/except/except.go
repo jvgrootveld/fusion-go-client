@@ -2,13 +2,14 @@ package except
 
 import (
 	"fmt"
+	"github.com/jvgrootveld/fusion-go-client/fusion/fault"
 
 	"github.com/jvgrootveld/fusion-go-client/fusion/connection"
 )
 
 // NewFusionClientError from status code and error message
-func NewFusionClientError(statusCode int, format string, args ...interface{}) *FusionClientError {
-	return &FusionClientError{
+func NewFusionClientError(statusCode int, format string, args ...interface{}) *fault.FusionClientError {
+	return &fault.FusionClientError{
 		IsUnexpectedStatusCode: true,
 		StatusCode:             statusCode,
 		Msg:                    fmt.Sprintf(format, args...),
@@ -16,8 +17,8 @@ func NewFusionClientError(statusCode int, format string, args ...interface{}) *F
 }
 
 // NewDerivedFusionClientError wraps an error into a FusionClientError as derived error
-func NewDerivedFusionClientError(err error) *FusionClientError {
-	return &FusionClientError{
+func NewDerivedFusionClientError(err error) *fault.FusionClientError {
+	return &fault.FusionClientError{
 		IsUnexpectedStatusCode: false,
 		StatusCode:             -1,
 		Msg:                    "check the DerivedFromError field for more information",
@@ -26,7 +27,7 @@ func NewDerivedFusionClientError(err error) *FusionClientError {
 }
 
 // NewUnexpectedStatusCodeErrorFromRESTResponse creates the error based on a response data object
-func NewUnexpectedStatusCodeErrorFromRESTResponse(responseData *connection.ResponseData) *FusionClientError {
+func NewUnexpectedStatusCodeErrorFromRESTResponse(responseData *connection.ResponseData) *fault.FusionClientError {
 	return NewFusionClientError(responseData.StatusCode, string(responseData.Body))
 }
 
@@ -37,8 +38,8 @@ func CheckResponseDataErrorAndStatusCode(responseData *connection.ResponseData, 
 	if responseErr != nil {
 		return NewDerivedFusionClientError(responseErr)
 	}
-	for i := range expectedStatusCodes {
-		if responseData.StatusCode == expectedStatusCodes[i] {
+	for _, expectedStatusCode := range expectedStatusCodes {
+		if responseData.StatusCode == expectedStatusCode {
 			return nil
 		}
 	}

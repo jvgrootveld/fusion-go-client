@@ -3,6 +3,7 @@ package generic
 import (
 	"context"
 	"fmt"
+	"github.com/jvgrootveld/fusion-go-client/fusion/fault"
 	"net/http"
 
 	"github.com/jvgrootveld/fusion-go-client/fusion/connection"
@@ -58,7 +59,7 @@ func (deleter *Deleter) checkRequired() error {
 	typeName := fmt.Sprint(deleter.apiName, "Deleter")
 
 	if deleter.id == "" {
-		return except.NewRequiredError(typeName, "id")
+		return fault.NewRequiredError(typeName, "id")
 	}
 
 	return nil

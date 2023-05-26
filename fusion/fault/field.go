@@ -1,4 +1,4 @@
-package except
+package fault
 
 import (
 	"fmt"

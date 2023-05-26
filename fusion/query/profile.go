@@ -24,8 +24,23 @@ func (api *ProfileAPI) Deleter() *generic.Deleter {
 		ForApplication(api.application)
 }
 
+// Getter new builder to retrieve one or all Query Profile's
+func (api *ProfileAPI) Getter() *ProfileGetter {
+	return NewProfileGetter(api.connection).
+		ForApplication(api.application)
+}
+
 // Creator builder to create new Query Profile's
 func (api *ProfileAPI) Creator() *ProfileCreator {
 	return NewProfileCreator(api.connection).
 		ForApplication(api.application)
+}
+
+type Profile struct {
+	Id                   string            `json:"id"`
+	QueryPipeline        string            `json:"queryPipeline"`
+	Collection           string            `json:"collection"`
+	SearchHandler        string            `json:"searchHandler,omitempty"`
+	Params               []Param           `json:"params,omitempty"`
+	AdditionalProperties map[string]string `json:"additionalProperties,omitempty"`
 }

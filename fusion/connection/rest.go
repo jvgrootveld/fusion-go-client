@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"github.com/jvgrootveld/fusion-go-client/fusion/fault"
 	"io"
 	"net/http"
 
@@ -124,4 +125,19 @@ func (conn *Connection) RunREST(
 type ResponseData struct {
 	Body       []byte
 	StatusCode int
+}
+
+// DecodeBodyIntoTarget unmarshall body into target var
+// successful if err is nil
+func (rd *ResponseData) DecodeBodyIntoTarget(target interface{}) error {
+	err := json.Unmarshal(rd.Body, target)
+	if err != nil {
+		return &fault.FusionClientError{
+			IsUnexpectedStatusCode: false,
+			StatusCode:             -1,
+			Msg:                    "failed to parse response data check DerivedFromError field for more information",
+			DerivedFromError:       err,
+		}
+	}
+	return nil
 }
