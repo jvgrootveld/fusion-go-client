@@ -3,9 +3,10 @@ package query
 import (
 	"context"
 	"encoding/json"
+	"testing"
+
 	"github.com/jvgrootveld/fusion-go-client/fusion/query"
 	"github.com/jvgrootveld/fusion-go-client/fusion/query/stage"
-	"testing"
 
 	"github.com/jvgrootveld/fusion-go-client/test/testsuit"
 	"github.com/stretchr/testify/assert"

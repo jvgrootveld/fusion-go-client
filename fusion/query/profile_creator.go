@@ -3,8 +3,9 @@ package query
 import (
 	"context"
 	"fmt"
-	"github.com/jvgrootveld/fusion-go-client/fusion/fault"
 	"net/http"
+
+	"github.com/jvgrootveld/fusion-go-client/fusion/fault"
 
 	"github.com/jvgrootveld/fusion-go-client/fusion/connection"
 	"github.com/jvgrootveld/fusion-go-client/fusion/except"

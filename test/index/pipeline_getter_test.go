@@ -3,9 +3,10 @@ package index
 import (
 	"context"
 	"encoding/json"
+	"testing"
+
 	"github.com/jvgrootveld/fusion-go-client/fusion/index"
 	"github.com/jvgrootveld/fusion-go-client/fusion/index/stage"
-	"testing"
 
 	"github.com/jvgrootveld/fusion-go-client/test/testsuit"
 	"github.com/stretchr/testify/assert"

@@ -4,9 +4,10 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"github.com/jvgrootveld/fusion-go-client/fusion/fault"
 	"io"
 	"net/http"
+
+	"github.com/jvgrootveld/fusion-go-client/fusion/fault"
 
 	"github.com/jvgrootveld/fusion-go-client/fusion/auth"
 )

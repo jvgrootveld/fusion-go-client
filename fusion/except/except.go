@@ -2,6 +2,7 @@ package except
 
 import (
 	"fmt"
+
 	"github.com/jvgrootveld/fusion-go-client/fusion/fault"
 
 	"github.com/jvgrootveld/fusion-go-client/fusion/connection"
