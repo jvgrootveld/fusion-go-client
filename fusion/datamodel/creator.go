@@ -65,15 +65,15 @@ func (creator *Creator) WithQueryPipeline(queryPipeline string) *Creator {
 }
 
 // WithFields is optional
-func (creator *Creator) WithFields(fields []DataModelField) *Creator {
+func (creator *Creator) WithFields(fields []Field) *Creator {
 	creator.model.Fields = fields
 	return creator
 }
 
-// WithField adds a single DataModelField on the new DataModel. Is optional
-func (creator *Creator) WithField(field DataModelField) *Creator {
+// WithField adds a single Field on the new DataModel. Is optional
+func (creator *Creator) WithField(field Field) *Creator {
 	if creator.model.Fields == nil {
-		creator.model.Fields = []DataModelField{}
+		creator.model.Fields = []Field{}
 	}
 
 	creator.model.Fields = append(creator.model.Fields, field)
@@ -101,16 +101,16 @@ func (creator *Creator) checkRequired() error {
 	typeName := fmt.Sprint(ApiName, "Creator")
 
 	if creator.model.Id == "" {
-		return fault.NewRequiredError(typeName, "model.Id")
+		return fault.NewRequiredError(typeName, "object.Id")
 	}
 	if creator.model.Name == "" {
-		return fault.NewRequiredError(typeName, "model.Name")
+		return fault.NewRequiredError(typeName, "object.Name")
 	}
 	if creator.model.Description == "" {
-		return fault.NewRequiredError(typeName, "model.Description")
+		return fault.NewRequiredError(typeName, "object.Description")
 	}
 	if creator.model.IndexPipeline == "" {
-		return fault.NewRequiredError(typeName, "model.IndexPipeline")
+		return fault.NewRequiredError(typeName, "object.IndexPipeline")
 	}
 
 	return nil

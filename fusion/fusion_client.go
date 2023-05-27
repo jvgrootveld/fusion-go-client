@@ -58,11 +58,11 @@ func NewClient(config Config) (*Client, error) {
 
 	client := &Client{
 		connection:    con,
-		indexPipeline: index.NewPipeline(con, config.Application),
-		indexProfile:  index.NewProfile(con, config.Application),
-		queryProfile:  query.NewProfile(con, config.Application),
-		queryPipeline: query.NewPipeline(con, config.Application),
-		dataModel:     datamodel.NewDataModel(con, config.Application),
+		indexPipeline: index.NewPipelineApi(con, config.Application),
+		indexProfile:  index.NewProfileApi(con, config.Application),
+		queryProfile:  query.NewProfileApi(con, config.Application),
+		queryPipeline: query.NewPipelineApi(con, config.Application),
+		dataModel:     datamodel.NewDataModelApi(con, config.Application),
 	}
 
 	return client, nil

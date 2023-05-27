@@ -14,8 +14,8 @@ type PipelineAPI struct {
 	application string
 }
 
-// NewPipeline api group with connection
-func NewPipeline(con *connection.Connection, application string) *PipelineAPI {
+// NewPipelineApi api group with connection
+func NewPipelineApi(con *connection.Connection, application string) *PipelineAPI {
 	return &PipelineAPI{connection: con, application: application}
 }
 

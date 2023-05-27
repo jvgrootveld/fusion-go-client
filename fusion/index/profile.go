@@ -13,8 +13,8 @@ type ProfileAPI struct {
 	application string
 }
 
-// NewProfile api group with connection
-func NewProfile(con *connection.Connection, application string) *ProfileAPI {
+// NewProfileApi api group with connection
+func NewProfileApi(con *connection.Connection, application string) *ProfileAPI {
 	return &ProfileAPI{connection: con, application: application}
 }
 
