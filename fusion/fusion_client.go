@@ -3,6 +3,8 @@ package fusion
 import (
 	"net/http"
 
+	"github.com/jvgrootveld/fusion-go-client/fusion/datamodel"
+
 	"github.com/jvgrootveld/fusion-go-client/fusion/index"
 	"github.com/jvgrootveld/fusion-go-client/fusion/query"
 
@@ -39,6 +41,7 @@ type Client struct {
 	indexProfile  *index.ProfileAPI
 	queryProfile  *query.ProfileAPI
 	queryPipeline *query.PipelineAPI
+	dataModel     *datamodel.API
 }
 
 // NewClient from Config
@@ -59,6 +62,7 @@ func NewClient(config Config) (*Client, error) {
 		indexProfile:  index.NewProfile(con, config.Application),
 		queryProfile:  query.NewProfile(con, config.Application),
 		queryPipeline: query.NewPipeline(con, config.Application),
+		dataModel:     datamodel.NewDataModel(con, config.Application),
 	}
 
 	return client, nil
@@ -82,4 +86,9 @@ func (c *Client) QueryPipeline() *query.PipelineAPI {
 // QueryProfile ProfileAPI group
 func (c *Client) QueryProfile() *query.ProfileAPI {
 	return c.queryProfile
+}
+
+// DataModel DataModelApi group
+func (c *Client) DataModel() *datamodel.API {
+	return c.dataModel
 }

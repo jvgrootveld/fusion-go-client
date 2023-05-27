@@ -11,12 +11,12 @@ import (
 func TestDeleter(t *testing.T) {
 	t.Run("Query Profile - Delete", func(t *testing.T) {
 		expectStatusCode := 204
-		profileId := "profile-id"
+		id := "profile-id"
 
-		client := testsuit.CreateStatusCodeUrlValidatorHttpClient(t, expectStatusCode, buildProfileUrl(profileId))
+		client := testsuit.CreateStatusCodeUrlValidatorHttpClient(t, expectStatusCode, buildProfileUrl(id))
 
 		err := testsuit.CreateFusionTestClient(client).QueryProfile().Deleter().
-			WithID(profileId).
+			WithID(id).
 			Do(context.Background())
 
 		assert.NoError(t, err)

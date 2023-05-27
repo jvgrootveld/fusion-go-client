@@ -15,17 +15,17 @@ import (
 func TestPipelineGetter(t *testing.T) {
 	t.Run("Index Pipeline - Getter - one", func(t *testing.T) {
 		expectStatusCode := 200
-		pipelineId := "pipeline-id"
+		id := "pipeline-id"
 
 		body := createDataIndexPipeline("1")
 
 		jsonBody, err := json.Marshal(body)
 		assert.NoError(t, err)
 
-		client := testsuit.CreateStatusCodeUrlValidatorWithBodyHttpClient(t, expectStatusCode, buildPipelineUrl(pipelineId), jsonBody)
+		client := testsuit.CreateStatusCodeUrlValidatorWithBodyHttpClient(t, expectStatusCode, buildPipelineUrl(id), jsonBody)
 
 		response, err := testsuit.CreateFusionTestClient(client).IndexPipeline().Getter().
-			WithID(pipelineId).
+			WithID(id).
 			Do(context.Background())
 
 		assert.NoError(t, err)

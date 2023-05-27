@@ -14,17 +14,17 @@ import (
 func TestProfileGetter(t *testing.T) {
 	t.Run("Query Profile - Getter - one", func(t *testing.T) {
 		expectStatusCode := 200
-		pipelineId := "pipeline-id"
+		id := "pipeline-id"
 
 		body := createDataQueryProfile("1")
 
 		jsonBody, err := json.Marshal(body)
 		assert.NoError(t, err)
 
-		client := testsuit.CreateStatusCodeUrlValidatorWithBodyHttpClient(t, expectStatusCode, buildProfileUrl(pipelineId), jsonBody)
+		client := testsuit.CreateStatusCodeUrlValidatorWithBodyHttpClient(t, expectStatusCode, buildProfileUrl(id), jsonBody)
 
 		response, err := testsuit.CreateFusionTestClient(client).QueryProfile().Getter().
-			WithID(pipelineId).
+			WithID(id).
 			Do(context.Background())
 
 		assert.NoError(t, err)
