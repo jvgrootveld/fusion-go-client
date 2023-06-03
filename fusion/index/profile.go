@@ -25,13 +25,13 @@ func (api *ProfileAPI) Deleter() *generic.Deleter {
 		ForApplication(api.application)
 }
 
-// Getter new builder to retrieve one or all Index Profile's
+// Getter new builder to retrieve one or all Index Profiles
 func (api *ProfileAPI) Getter() *generic.Getter[Profile] {
 	return generic.NewGetter[Profile](api.connection, ProfileApiName).
 		ForApplication(api.application)
 }
 
-// Creator builder to create new Index Profile's
+// Creator builder to create new Index Profiles
 func (api *ProfileAPI) Creator() *generic.Creator[Profile] {
 	return generic.NewCreator[Profile](api.connection, ProfileApiName).
 		ForApplication(api.application).

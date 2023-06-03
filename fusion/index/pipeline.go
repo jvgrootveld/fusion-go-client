@@ -26,13 +26,13 @@ func (api *PipelineAPI) Deleter() *generic.Deleter {
 		ForApplication(api.application)
 }
 
-// Getter new builder to retrieve one or all Index Pipeline's
+// Getter new builder to retrieve one or all Index Pipelines
 func (api *PipelineAPI) Getter() *generic.Getter[Pipeline] {
 	return generic.NewGetter[Pipeline](api.connection, PipelineApiName).
 		ForApplication(api.application)
 }
 
-// Creator builder to create new Index Pipeline's
+// Creator builder to create new Index Pipelines
 func (api *PipelineAPI) Creator() *generic.Creator[Pipeline] {
 	return generic.NewCreator[Pipeline](api.connection, PipelineApiName).
 		ForApplication(api.application).

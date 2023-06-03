@@ -8,28 +8,38 @@ import (
 )
 
 const (
-	host        = "fusion.unittest"
-	scheme      = "http"
-	application = "test-app"
+	Host        = "fusion.unittest"
+	Scheme      = "http"
+	Application = "test-app"
 )
 
-// CreateApplicationUrl creates an url for tests with an application in the path
+// CreateGenericApiUrl creates an url for tests without an Application in the path
+func CreateGenericApiUrl(apiName, id string) string {
+	path := pathbuilder.ApiPath(pathbuilder.Components{
+		ApiName:  apiName,
+		ObjectId: id,
+	})
+
+	return Scheme + "://" + Host + path
+}
+
+// CreateApplicationUrl creates an url for tests with an Application in the path
 func CreateApplicationUrl(apiName, id string) string {
 	path := pathbuilder.ApiPath(pathbuilder.Components{
-		Application: application,
+		Application: Application,
 		ApiName:     apiName,
 		ObjectId:    id,
 	})
 
-	return scheme + "://" + host + path
+	return Scheme + "://" + Host + path
 }
 
 // CreateFusionTestClient creates a Fusion Client with given http client
 func CreateFusionTestClient(client *http.Client) *fusion.Client {
 	fusionClient, err := fusion.NewClient(fusion.Config{
-		Host:             host,
-		Scheme:           scheme,
-		Application:      application,
+		Host:             Host,
+		Scheme:           Scheme,
+		Application:      Application,
 		ConnectionClient: client,
 	})
 	if err != nil {

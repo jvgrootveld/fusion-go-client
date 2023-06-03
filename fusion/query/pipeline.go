@@ -20,19 +20,19 @@ func NewPipelineApi(con *connection.Connection, application string) *PipelineAPI
 	return &PipelineAPI{connection: con, application: application}
 }
 
-// Deleter new builder to delete Query Pipeline's
+// Deleter new builder to delete Query Pipelines
 func (api *PipelineAPI) Deleter() *generic.Deleter {
 	return generic.NewDeleter(api.connection, PipelineApiName).
 		ForApplication(api.application)
 }
 
-// Getter new builder to retrieve one or all Query Pipeline's
+// Getter new builder to retrieve one or all Query Pipelines
 func (api *PipelineAPI) Getter() *generic.Getter[Pipeline] {
 	return generic.NewGetter[Pipeline](api.connection, PipelineApiName).
 		ForApplication(api.application)
 }
 
-// Creator builder to create new Query Pipeline's
+// Creator builder to create new Query Pipelines
 func (api *PipelineAPI) Creator() *generic.Creator[Pipeline] {
 	return generic.NewCreator[Pipeline](api.connection, PipelineApiName).
 		ForApplication(api.application).

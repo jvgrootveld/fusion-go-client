@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestDeleter(t *testing.T) {
+func TestProfileDeleter(t *testing.T) {
 	t.Run("Query Profile - Delete", func(t *testing.T) {
 		expectStatusCode := 204
 		id := "profile-id"

@@ -29,6 +29,7 @@ func NewCreator[T interface{}](connection *connection.Connection, apiName string
 // ForApplication specifies the application the configured object should be created.
 // When set it's interpreted as an application api e.g. `/api/apps/acme/index-pipelines`
 // When empty it's interpreted as a generic api e.g. `/api/collections'
+// Note: This overrides the default in the Api
 func (creator *Creator[T]) ForApplication(application string) *Creator[T] {
 	creator.application = application
 	return creator

@@ -1,6 +1,7 @@
 package fusion
 
 import (
+	"github.com/jvgrootveld/fusion-go-client/fusion/collection"
 	"net/http"
 
 	"github.com/jvgrootveld/fusion-go-client/fusion/datamodel"
@@ -37,6 +38,7 @@ type Config struct {
 // Client implementing the Fusion ProfileAPI
 type Client struct {
 	connection    *connection.Connection
+	collection    *collection.API
 	indexPipeline *index.PipelineAPI
 	indexProfile  *index.ProfileAPI
 	queryProfile  *query.ProfileAPI
@@ -58,6 +60,7 @@ func NewClient(config Config) (*Client, error) {
 
 	client := &Client{
 		connection:    con,
+		collection:    collection.NewCollectionApi(con, config.Application),
 		indexPipeline: index.NewPipelineApi(con, config.Application),
 		indexProfile:  index.NewProfileApi(con, config.Application),
 		queryProfile:  query.NewProfileApi(con, config.Application),
@@ -66,6 +69,11 @@ func NewClient(config Config) (*Client, error) {
 	}
 
 	return client, nil
+}
+
+// Collection CollectionApi group
+func (c *Client) Collection() *collection.API {
+	return c.collection
 }
 
 // IndexPipeline ProfileAPI group

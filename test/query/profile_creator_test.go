@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestCreator(t *testing.T) {
+func TestProfileCreator(t *testing.T) {
 	t.Run("Query Profile - Create", func(t *testing.T) {
 		expectStatusCode := 201
 
