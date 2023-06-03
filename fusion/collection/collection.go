@@ -5,7 +5,7 @@ import (
 	"github.com/jvgrootveld/fusion-go-client/fusion/generic"
 )
 
-const ApiName = "collection"
+const ApiName = "collections"
 
 // API Contains all the builders required to access the Fusion Collection
 // Also see Fusion docs: https://doc.lucidworks.com/fusion/5.8/307/collections-api
