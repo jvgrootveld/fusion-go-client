@@ -8,6 +8,7 @@ import (
 const ProfileApiName = "query-profiles"
 
 // ProfileAPI Contains all the builders required to access the Fusion Query Profile
+// Also see Fusion docs: https://doc.lucidworks.com/fusion/5.8/363/query-profiles-api
 type ProfileAPI struct {
 	connection  *connection.Connection
 	application string
@@ -25,15 +26,16 @@ func (api *ProfileAPI) Deleter() *generic.Deleter {
 }
 
 // Getter new builder to retrieve one or all Query Profile's
-func (api *ProfileAPI) Getter() *ProfileGetter {
-	return NewProfileGetter(api.connection).
+func (api *ProfileAPI) Getter() *generic.Getter[Profile] {
+	return generic.NewGetter[Profile](api.connection, ProfileApiName).
 		ForApplication(api.application)
 }
 
 // Creator builder to create new Query Profile's
-func (api *ProfileAPI) Creator() *ProfileCreator {
-	return NewProfileCreator(api.connection).
-		ForApplication(api.application)
+func (api *ProfileAPI) Creator() *generic.Creator[Profile] {
+	return generic.NewCreator[Profile](api.connection, ProfileApiName).
+		ForApplication(api.application).
+		WithModelValidator(createProfileValidator)
 }
 
 type Profile struct {

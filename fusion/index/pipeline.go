@@ -9,6 +9,7 @@ import (
 const PipelineApiName = "index-pipelines"
 
 // PipelineAPI Contains all the builders required to access the Fusion Index Pipeline PipelineAPI
+// Also see Fusion docs: https://doc.lucidworks.com/fusion/5.8/351/index-pipelines-api
 type PipelineAPI struct {
 	connection  *connection.Connection
 	application string
@@ -26,15 +27,16 @@ func (api *PipelineAPI) Deleter() *generic.Deleter {
 }
 
 // Getter new builder to retrieve one or all Index Pipeline's
-func (api *PipelineAPI) Getter() *PipelineGetter {
-	return NewPipelineGetter(api.connection).
+func (api *PipelineAPI) Getter() *generic.Getter[Pipeline] {
+	return generic.NewGetter[Pipeline](api.connection, PipelineApiName).
 		ForApplication(api.application)
 }
 
 // Creator builder to create new Index Pipeline's
-func (api *PipelineAPI) Creator() *PipelineCreator {
-	return NewPipelineCreator(api.connection).
-		ForApplication(api.application)
+func (api *PipelineAPI) Creator() *generic.Creator[Pipeline] {
+	return generic.NewCreator[Pipeline](api.connection, PipelineApiName).
+		ForApplication(api.application).
+		WithModelValidator(createPipelineValidator)
 }
 
 type Pipeline struct {

@@ -17,11 +17,17 @@ func TestCreator(t *testing.T) {
 		client := testsuit.CreateStatusCodeUrlValidatorHttpClient(t, expectStatusCode, buildProfileUrl(""))
 
 		err := testsuit.CreateFusionTestClient(client).QueryProfile().Creator().
-			WithID("profile-id").
-			WithQueryPipeline("pipeline-id").
-			WithCollection("collection-id").
-			WithParam(query.Param{Key: "Key", Value: "Value", Policy: query.Append}).
-			WithAdditionalProperty("property-key", "property value").
+			WithModel(query.Profile{
+				Id:            "profile-id",
+				QueryPipeline: "pipeline-id",
+				Collection:    "collection-id",
+				Params: []query.Param{
+					{Key: "Key", Value: "Value", Policy: query.Append},
+				},
+				AdditionalProperties: map[string]string{
+					"property-key": "property value",
+				},
+			}).
 			Do(context.Background())
 
 		assert.NoError(t, err)

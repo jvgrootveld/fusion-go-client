@@ -2,6 +2,7 @@ package index
 
 import (
 	"context"
+	"github.com/jvgrootveld/fusion-go-client/fusion/index"
 	"testing"
 
 	"github.com/jvgrootveld/fusion-go-client/fusion/index/stage"
@@ -17,12 +18,14 @@ func TestPipelineCreator(t *testing.T) {
 		client := testsuit.CreateStatusCodeUrlValidatorHttpClient(t, expectStatusCode, buildPipelineUrl(""))
 
 		err := testsuit.CreateFusionTestClient(client).IndexPipeline().Creator().
-			WithID("pipeline-id").
-			WithStages(
-				stage.NewFieldMapping("Field Mapping"),
-				stage.NewSolrDynamicFieldNameMapping("Solr Dynamic Field Mapping"),
-				stage.NewSolrIndex("Solr Index"),
-			).
+			WithModel(index.Pipeline{
+				Id: "pipeline-id",
+				Stages: []stage.Stage{
+					stage.NewFieldMapping("Field Mapping"),
+					stage.NewSolrDynamicFieldNameMapping("Solr Dynamic Field Mapping"),
+					stage.NewSolrIndex("Solr Index"),
+				},
+			}).
 			Do(context.Background())
 
 		assert.NoError(t, err)

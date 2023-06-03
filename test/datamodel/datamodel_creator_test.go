@@ -17,21 +17,25 @@ func TestProfileCreator(t *testing.T) {
 		client := testsuit.CreateStatusCodeUrlValidatorHttpClient(t, expectStatusCode, buildUrl(""))
 
 		err := testsuit.CreateFusionTestClient(client).DataModel().Creator().
-			WithID("data-model-id").
-			WithName("data-model").
-			WithDescription("Data Model").
-			WithIndexPipeline("pipeline-id").
-			WithField(datamodel.Field{
-				Name:        "Field 1",
-				Description: "Field 1 Description",
-				Required:    true,
-				Mappings: []datamodel.FieldMapping{
+			WithModel(datamodel.DataModel{
+				Id:            "data-model-id",
+				Name:          "data-model",
+				Description:   "Data Model",
+				IndexPipeline: "pipeline-id",
+				Fields: []datamodel.Field{
 					{
-						SolrField:   "SolrField",
-						QueryField:  true,
-						PhraseMatch: false,
-						BoostValue:  0.1,
-						PhraseBoost: 0.2,
+						Name:        "Field 1",
+						Description: "Field 1 Description",
+						Required:    true,
+						Mappings: []datamodel.FieldMapping{
+							{
+								SolrField:   "SolrField",
+								QueryField:  true,
+								PhraseMatch: false,
+								BoostValue:  0.1,
+								PhraseBoost: 0.2,
+							},
+						},
 					},
 				},
 			}).

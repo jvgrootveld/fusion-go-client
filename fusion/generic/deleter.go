@@ -20,7 +20,7 @@ type Deleter struct {
 	id          string
 }
 
-// NewDeleter with apiName of the configured object to delete like index-pipeline or query-profile
+// NewDeleter with connection and apiName of the configured object to delete like index-pipeline or query-profile
 func NewDeleter(connection *connection.Connection, apiName string) *Deleter {
 	return &Deleter{
 		connection: connection,
@@ -29,7 +29,8 @@ func NewDeleter(connection *connection.Connection, apiName string) *Deleter {
 }
 
 // ForApplication specifies the application the configured object is in.
-// Note: This overrides the default in the Connection
+// When set it's interpreted as an application api e.g. `/api/apps/acme/index-pipelines`
+// When empty it's interpreted as a generic api e.g. `/api/collections'
 func (deleter *Deleter) ForApplication(application string) *Deleter {
 	deleter.application = application
 	return deleter
@@ -47,7 +48,7 @@ func (deleter *Deleter) Do(ctx context.Context) error {
 		return err
 	}
 
-	path := pathbuilder.AppsPath(pathbuilder.Components{
+	path := pathbuilder.ApiPath(pathbuilder.Components{
 		Application: deleter.application,
 		ApiName:     deleter.apiName,
 		ObjectId:    deleter.id,

@@ -15,7 +15,7 @@ const (
 
 // CreateApplicationUrl creates an url for tests with an application in the path
 func CreateApplicationUrl(apiName, id string) string {
-	path := pathbuilder.AppsPath(pathbuilder.Components{
+	path := pathbuilder.ApiPath(pathbuilder.Components{
 		Application: application,
 		ApiName:     apiName,
 		ObjectId:    id,

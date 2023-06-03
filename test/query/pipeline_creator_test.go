@@ -2,6 +2,7 @@ package query
 
 import (
 	"context"
+	"github.com/jvgrootveld/fusion-go-client/fusion/query"
 	"testing"
 
 	"github.com/jvgrootveld/fusion-go-client/fusion/query/stage"
@@ -17,16 +18,18 @@ func TestPipelineCreator(t *testing.T) {
 		client := testsuit.CreateStatusCodeUrlValidatorHttpClient(t, expectStatusCode, buildPipelineUrl(""))
 
 		err := testsuit.CreateFusionTestClient(client).QueryPipeline().Creator().
-			WithID("pipeline-id").
-			WithStages(
-				stage.NewTextTagger("Text Tagger"),
-				stage.NewBoostWithSignals("Boost with Signals"),
-				stage.NewQueryFields("Query Fields"),
-				stage.NewFacets("Facets"),
-				stage.NewApplyRules("Apply Rules"),
-				stage.NewSolrQuery("SolrQuery"),
-				stage.NewModifyResponseWithRules("Modify Response with Rules"),
-			).
+			WithModel(query.Pipeline{
+				Id: "pipeline-id",
+				Stages: []stage.Stage{
+					stage.NewTextTagger("Text Tagger"),
+					stage.NewBoostWithSignals("Boost with Signals"),
+					stage.NewQueryFields("Query Fields"),
+					stage.NewFacets("Facets"),
+					stage.NewApplyRules("Apply Rules"),
+					stage.NewSolrQuery("SolrQuery"),
+					stage.NewModifyResponseWithRules("Modify Response with Rules"),
+				},
+			}).
 			Do(context.Background())
 
 		assert.NoError(t, err)
