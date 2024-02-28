@@ -2,6 +2,7 @@ package fusion
 
 import (
 	"github.com/jvgrootveld/fusion-go-client/fusion/collection"
+	"github.com/jvgrootveld/fusion-go-client/fusion/job"
 	"net/http"
 
 	"github.com/jvgrootveld/fusion-go-client/fusion/datamodel"
@@ -44,6 +45,7 @@ type Client struct {
 	queryProfile  *query.ProfileAPI
 	queryPipeline *query.PipelineAPI
 	dataModel     *datamodel.API
+	job           *job.API
 }
 
 // NewClient from Config
@@ -66,6 +68,7 @@ func NewClient(config Config) (*Client, error) {
 		queryProfile:  query.NewProfileApi(con, config.Application),
 		queryPipeline: query.NewPipelineApi(con, config.Application),
 		dataModel:     datamodel.NewDataModelApi(con, config.Application),
+		job:           job.NewApi(con, config.Application),
 	}
 
 	return client, nil
@@ -99,4 +102,9 @@ func (c *Client) QueryProfile() *query.ProfileAPI {
 // DataModel DataModelApi group
 func (c *Client) DataModel() *datamodel.API {
 	return c.dataModel
+}
+
+// Job JobApi group
+func (c *Client) Job() *job.API {
+	return c.job
 }

@@ -8,7 +8,7 @@ import (
 
 const PipelineApiName = "index-pipelines"
 
-// PipelineAPI Contains all the builders required to access the Fusion Index Pipeline PipelineAPI
+// PipelineAPI Contains all the builders required to access the Fusion Index Pipeline
 // Also see Fusion docs: https://doc.lucidworks.com/fusion/5.8/351/index-pipelines-api
 type PipelineAPI struct {
 	connection  *connection.Connection

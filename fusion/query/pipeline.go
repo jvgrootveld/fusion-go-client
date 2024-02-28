@@ -8,7 +8,7 @@ import (
 
 const PipelineApiName = "query-pipelines"
 
-// PipelineAPI Contains all the builders required to access the Fusion Query Pipeline PipelineAPI
+// PipelineAPI Contains all the builders required to access the Fusion Query Pipeline
 // Also see Fusion docs: https://doc.lucidworks.com/fusion/5.8/360/query-pipelines-api
 type PipelineAPI struct {
 	connection  *connection.Connection

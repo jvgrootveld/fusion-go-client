@@ -55,9 +55,9 @@ func (getter *Getter[T]) Do(ctx context.Context) ([]T, error) {
 
 	// If id is set, unmarshal to a single instance
 	if getter.id != "" {
-		var resultCollection T
-		parseErr := responseData.DecodeBodyIntoTarget(&resultCollection)
-		return []T{resultCollection}, parseErr
+		var result T
+		parseErr := responseData.DecodeBodyIntoTarget(&result)
+		return []T{result}, parseErr
 	}
 
 	var resultCollections []T

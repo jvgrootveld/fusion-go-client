@@ -54,7 +54,7 @@ func (deleter *Deleter) Do(ctx context.Context) error {
 		ObjectId:    deleter.id,
 	})
 	responseData, err := deleter.connection.RunREST(ctx, path, http.MethodDelete, nil)
-	return except.CheckResponseDataErrorAndStatusCode(responseData, err, 204)
+	return except.CheckResponseDataErrorAndStatusCode(responseData, err, 204, 200)
 }
 
 func (deleter *Deleter) checkRequired() error {
